@@ -38,7 +38,26 @@ def main():
     def load_cached_model():
         return load_model()
 
+    model = load_cached_model()
 
+    uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+
+    if uploaded_file is not None:
+        image = st.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
+        btn = st.button("Classify Image")
+
+        if btn:
+            with st.spinner("Classifying Image..."):
+                image = Image.open(uploaded_file)
+                predictions = classify_image(image)
+
+                if predictions:
+                    st.subheader("Predictions")
+                    for _, label, score in predictions:
+                        st.write(f"**{label}** - {score:.2%}")
+
+if __name__ == "__main__":
+    main()
 
 
 
