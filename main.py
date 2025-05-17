@@ -49,7 +49,7 @@ def main():
         if btn:
             with st.spinner("Classifying Image..."):
                 image = Image.open(uploaded_file)
-                predictions = classify_image(image)
+                predictions = classify_image(model, image)
 
                 if predictions:
                     st.subheader("Predictions")
